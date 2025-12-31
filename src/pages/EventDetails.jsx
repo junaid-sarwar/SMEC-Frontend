@@ -104,7 +104,7 @@ export default function EventDetails() {
             teamMembers: teamMembers
         };
 
-        const response = await axios.post('http://localhost:8080/api/events/buy-ticket', payload, {
+        const response = await axios.post('https://smec-2026.vercel.app/api/events/buy-ticket', payload, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
