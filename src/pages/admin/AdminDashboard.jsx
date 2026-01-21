@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell
 } from 'recharts';
+import SmecLogo from '../../assets/logo-bg.png'
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -174,9 +175,10 @@ export default function AdminDashboard() {
       
       {/* --- MOBILE HEADER --- */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-zinc-900/80 backdrop-blur-md border-b border-white/10 z-50 flex items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-            <Gamepad2 className="h-6 w-6 text-primary" />
-            <span className="font-display text-lg font-bold text-white">ADMIN</span>
+        <div className="flex items-center gap-3">
+             {/* Fixed height to prevent layout shift */}
+             <img src={SmecLogo} className="h-10 w-auto object-contain" alt="SMEC Logo" />
+             <span className="font-display text-lg font-bold text-white">ADMIN</span>
         </div>
         <Button variant="ghost" size="icon" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             {isSidebarOpen ? <X className="h-6 w-6"/> : <Menu className="h-6 w-6"/>}
@@ -188,11 +190,13 @@ export default function AdminDashboard() {
           "fixed inset-y-0 left-0 w-64 bg-zinc-900/95 backdrop-blur-xl border-r border-white/10 p-6 z-40 transition-transform duration-300 lg:translate-x-0 lg:static pt-20 lg:pt-6",
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="flex items-center gap-2 mb-10 hidden lg:flex">
-          <Gamepad2 className="h-8 w-8 text-primary animate-pulse" />
-          <span className="font-display text-2xl font-bold tracking-wider">
-            <span className="text-primary">SM</span>EC
-          </span>
+        {/* LOGO SECTION */}
+        <div className="flex items-center justify-center mb-10 hidden lg:flex">
+          <img 
+            src={SmecLogo} 
+            className="h-40 w-auto object-contain" 
+            alt="SMEC Logo" 
+          />
         </div>
 
         <nav className="space-y-2">
@@ -448,7 +452,7 @@ function CreateEventForm({ onSuccess, onBack }) {
       Object.keys(formData).forEach(key => data.append(key, formData[key]));
       if (imageFile) data.append('image', imageFile);
 
-      const response = await axios.post('http://localhost:8080/api/events/create', data, {
+      const response = await axios.post('https://smec-backend.onrender.com/api/events/create', data, {
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
       });
       if (response.data.success) { 
@@ -527,7 +531,7 @@ function CreateDiscountForm({ onSuccess }) {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:8080/api/events/discount', 
+            await axios.post('https://smec-backend.onrender.com8080/api/events/discount', 
                 { code, percentage: percent, isActive },
                 { headers: { 'Authorization': `Bearer ${token}` } }
             );
