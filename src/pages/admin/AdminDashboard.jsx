@@ -479,7 +479,7 @@ function CreateEventForm({ onSuccess, onBack }) {
             <div className="grid grid-cols-2 gap-4">
                 <select name="category" onChange={handleChange} className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:border-primary">
                     <option value="E-Games">E-Games</option>
-                    <option value="Geeks">Geeks (Coding)</option>
+                    <option value="Geeks">Geeks</option>
                     <option value="General Games">General Games</option>
                 </select>
                 <input name="teamSize" type="number" onChange={handleChange} className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:border-primary outline-none" placeholder="Team Size" required />
@@ -531,7 +531,7 @@ function CreateDiscountForm({ onSuccess }) {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            await axios.post('https://smec-backend.onrender.com8080/api/events/discount', 
+            await axios.post('https://smec-backend.onrender.com/api/events/discount', 
                 { code, percentage: percent, isActive },
                 { headers: { 'Authorization': `Bearer ${token}` } }
             );
